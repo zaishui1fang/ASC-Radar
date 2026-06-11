@@ -1,0 +1,32 @@
+# Local account data and encrypted secrets
+data/store.json
+data/local.key
+data/icons/
+data/*.broken-*
+data/*.tmp
+
+# Apple private keys
+*.p8
+*.key
+
+# Local generated/debug artifacts
+assets/extracted-exe-icon.png
+ASC Radar.exe
+runtime/node.exe
+*.log
+*.tmp
+*.bak
+*.old
+*.old-*
+*.new.exe
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# PowerShell runtime noise
+*.ps1xml
+*.clixml
