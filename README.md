@@ -80,14 +80,9 @@ Windows 运行版请到 Releases 下载压缩包：
 
 ## 安全提醒
 
-本工具会在本地保存账号配置、同步结果和加密后的私钥数据。上传 GitHub 前，请务必确认以下文件没有被提交：
+账号配置、同步结果和加密后的私钥数据只保存在本地电脑。请不要把本地 `data/` 目录或 `.p8` 私钥文件分享给他人。
 
-- `data/store.json`
-- `data/local.key`
-- `data/icons/`
-- 任意 `.p8` 私钥文件
-
-`.gitignore` 已默认忽略这些本地数据。不要把真实账号数据、私钥、Apple ID 密码、验证码上传到公开仓库。
+ASC Radar 不保存 Apple ID 密码，也不处理 Apple ID 验证码。
 
 ## 项目结构
 
@@ -96,8 +91,8 @@ ASC Radar.exe              桌面启动器
 start.cmd                  调试/备用启动入口
 启动桌面版.vbs              备用静默启动入口
 assets/                    应用 Logo 和图标资源
-data/                      本地数据目录，禁止上传真实数据
-runtime/node.exe           内置 Node.js 运行时
+data/                      本地数据目录，首次运行时自动生成
+runtime/node.exe           内置 Node.js 运行时，随 Releases 压缩包分发
 src/App.ps1                WPF 主程序逻辑
 src/App.xaml               WPF 界面布局
 src/apple-sync.js          App Store Connect API 调用
@@ -128,15 +123,3 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools\generate-logo.ps1
 $asm = Get-ChildItem -Path $env:WINDIR\Microsoft.NET\assembly\GAC_MSIL\System.Management.Automation -Recurse -Filter System.Management.Automation.dll | Select-Object -First 1 -ExpandProperty FullName
 & "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /nologo /target:winexe /out:"ASC Radar.exe" /win32icon:"assets\app-logo.ico" /reference:System.Windows.Forms.dll /reference:"$asm" "tools\Launcher.cs"
 ```
-
-## GitHub 上传前检查
-
-上传前建议执行：
-
-```powershell
-git status
-```
-
-确认 `data/store.json`、`data/local.key`、`.p8` 私钥文件没有出现在待提交列表中。
-
-如果只想维护源码仓库，可以把完整便携版 ZIP 放到 GitHub Releases；仓库里只保存源码和说明。
